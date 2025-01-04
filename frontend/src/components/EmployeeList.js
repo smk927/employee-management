@@ -1,3 +1,4 @@
+// components/EmployeeList.js
 import React, { useState, useEffect } from 'react';
 import { Paper, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import axios from 'axios';
@@ -26,31 +27,45 @@ const EmployeeList = ({ refreshTrigger }) => {
   };
 
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper sx={{ p: 3, borderRadius: 2 }}>
+      {/* Filter input */}
       <TextField
         fullWidth
         label="Filter by name or department"
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
         margin="normal"
+        variant="outlined"
+        sx={{ input: { color: 'white' }, marginBottom: 2 }}
       />
+      
+      {/* Employee Table */}
       <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Department</TableCell>
-              <TableCell>Address</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Name</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Department</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Address</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+            {/* Render employees */}
             {employees.map((employee) => (
-              <TableRow key={employee.id}>
-                <TableCell>{employee.name}</TableCell>
-                <TableCell>{employee.departmentName}</TableCell>
-                <TableCell>{employee.address}</TableCell>
+              <TableRow key={employee.id} sx={{ '&:hover': { backgroundColor: '#333' } }}>
+                <TableCell sx={{ color: 'white' }}>{employee.name}</TableCell>
+                <TableCell sx={{ color: 'white' }}>{employee.departmentName}</TableCell>
+                <TableCell sx={{ color: 'white' }}>{employee.address}</TableCell>
               </TableRow>
             ))}
+            {/* No data message */}
+            {employees.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={3} sx={{ textAlign: 'center', color: 'gray' }}>
+                  No employees found
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

@@ -1,3 +1,4 @@
+// components/EmployeeForm.js
 import React, { useState, useEffect } from 'react';
 import { Paper, TextField, Button, Box, MenuItem } from '@mui/material';
 import axios from 'axios';
@@ -26,14 +27,16 @@ const EmployeeForm = ({ onEmployeeAdded, refreshTrigger }) => {
   };
 
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper sx={{ p: 3, borderRadius: 2 }}>
       <Box component="form" onSubmit={handleSubmit}>
         <TextField
           fullWidth
-          label="Name"
+          label="Employee Name"
           value={employee.name}
           onChange={(e) => setEmployee({ ...employee, name: e.target.value })}
           margin="normal"
+          variant="outlined"
+          sx={{ input: { color: 'white' }, marginBottom: 2 }}
         />
         <TextField
           fullWidth
@@ -42,6 +45,8 @@ const EmployeeForm = ({ onEmployeeAdded, refreshTrigger }) => {
           value={employee.department}
           onChange={(e) => setEmployee({ ...employee, department: e.target.value })}
           margin="normal"
+          variant="outlined"
+          sx={{ input: { color: 'white' }, marginBottom: 2 }}
         >
           {departments.map((dept) => (
             <MenuItem key={dept.id} value={dept.id}>
@@ -55,8 +60,17 @@ const EmployeeForm = ({ onEmployeeAdded, refreshTrigger }) => {
           value={employee.address}
           onChange={(e) => setEmployee({ ...employee, address: e.target.value })}
           margin="normal"
+          variant="outlined"
+          sx={{ input: { color: 'white' }, marginBottom: 2 }}
         />
-        <Button variant="contained" type="submit">
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{
+            backgroundColor: 'secondary.main',
+            '&:hover': { backgroundColor: 'secondary.dark' },
+          }}
+        >
           Add Employee
         </Button>
       </Box>
